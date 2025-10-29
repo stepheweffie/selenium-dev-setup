@@ -1,0 +1,75 @@
+version: '3.8'
+
+networks:
+  consignment-network:
+    external: true
+
+services:
+  # API Service
+  api:
+    image: savantlab-api
+    container_name: consignment-api-new
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - JWT_SECRET_KEY=jwt-secret-key-change-in-production
+      - DATABASE_URL=sqlite:///inventory.db
+      - MULTI_TENANT_MODE=single
+    networks:
+      consignment-network:
+        aliases:
+          - api
+          - consignment-api
+    restart: unless-stopped
+
+  # Login Service
+  login:
+    image: savantlab-login
+    container_name: consignment-login-new
+    ports:
+      - "5002:5002"
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - API_BASE_URL=http://consignment-api:5001
+      - ADMIN_URL=http://localhost:5003
+    networks:
+      - consignment-network
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Admin Service
+  admin:
+    image: savantlab-admin
+    container_name: consignment-admin-new
+    ports:
+      - "5003:5003"
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - API_BASE_URL=http://consignment-api:5001/api
+      - LOGIN_URL=http://localhost:5002
+    networks:
+      - consignment-network
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Catalog Service
+  catalog:
+    image: savantlab-catalog
+    container_name: consignment-catalog-new
+    ports:
+      - "5004:5004"
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - API_BASE_URL=http://consignment-api:5001/api
+    networks:
+      - consignment-network
+    depends_on:
+      - api
+    restart: unless-stopped
