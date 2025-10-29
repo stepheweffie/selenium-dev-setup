@@ -3,6 +3,7 @@ Example test file demonstrating Selenium + pytest integration.
 Run with: pytest test_example.py -v
 """
 
+import os
 import pytest
 from browser import Browser
 
@@ -10,7 +11,9 @@ from browser import Browser
 @pytest.fixture
 def browser():
     """Fixture that provides a browser instance for each test."""
-    browser_instance = Browser(headless=False)
+    # Use headless mode in CI environment
+    is_ci = os.getenv("CI", "false").lower() == "true"
+    browser_instance = Browser(headless=is_ci)
     yield browser_instance
     browser_instance.close()
 

@@ -61,7 +61,7 @@ jobs:
     
     - name: Run unit tests
       run: |
-        pytest test_example.py -v --headless
+        pytest test_example.py -v
       env:
         CI: true
     
@@ -130,7 +130,9 @@ jobs:
     - name: Run integration tests
       if: steps.check_images.outputs.images_exist == 'true'
       run: |
-        pytest test_login_flow.py -v --headless -m integration || echo "Integration tests skipped - services not available"
+        pytest test_login_flow.py -v -m integration || echo "Integration tests skipped - services not available"
+      env:
+        CI: true
       continue-on-error: true
     
     - name: Stop services
