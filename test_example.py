@@ -18,17 +18,17 @@ def browser():
 def test_google_search(browser):
     """Test Google search functionality."""
     browser.goto("https://www.google.com")
-    
+
     # Find and interact with search box
     search_box = browser.find("textarea[name='q']")
     assert search_box is not None
-    
+
     search_box.send_keys("Python Selenium")
     search_box.submit()
-    
+
     # Wait for results
     browser.wait_for("#search")
-    
+
     # Verify results appeared
     results = browser.find_all(".g")
     assert len(results) > 0
