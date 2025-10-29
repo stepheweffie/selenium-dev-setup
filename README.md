@@ -1,6 +1,10 @@
 # Selenium Dev Setup
 
-A development-ready Selenium environment with Chrome browser automation.
+[![CI](https://github.com/stepheweffie/selenium-dev-setup/actions/workflows/ci.yml/badge.svg)](https://github.com/stepheweffie/selenium-dev-setup/actions/workflows/ci.yml)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
+
+A development-ready Selenium environment with Chrome browser automation, complete with CI/CD pipeline.
 
 ## Setup
 
@@ -80,6 +84,29 @@ python browser.py
 - Access raw Selenium driver: `browser.driver`
 - Access WebDriverWait: `browser.wait`
 - Use `By` for different selectors: `By.ID`, `By.XPATH`, `By.CLASS_NAME`, etc.
+
+## CI/CD
+
+This project includes a complete GitHub Actions pipeline:
+
+- **Code Quality**: Black formatting + Flake8 linting
+- **Automated Tests**: Pytest with headless Chrome
+- **Integration Tests**: Docker Compose service testing
+
+See [CI_CD_SETUP.md](CI_CD_SETUP.md) for full documentation.
+
+### Local Quality Checks
+
+```bash
+# Format code
+black .
+
+# Lint code
+flake8 .
+
+# Run tests in CI mode
+CI=true pytest -v
+```
 
 ## Requirements
 
