@@ -26,7 +26,7 @@ try:
     print("Waiting for redirect...")
     time.sleep(3)
 
-    print(f"\nAfter login:")
+    print("\nAfter login:")
     print(f"  URL: {browser.driver.current_url}")
     print(f"  Title: {browser.driver.title}")
 
@@ -34,17 +34,17 @@ try:
     try:
         alerts = browser.find_all(".alert, .error, .alert-danger, .text-danger")
         if alerts:
-            print(f"\nError messages found:")
+            print("\nError messages found:")
             for alert in alerts:
                 if alert.text.strip():
                     print(f"  - {alert.text.strip()}")
-    except:
+    except Exception:
         pass
 
     # Check page text for any error indicators
     page_text = browser.driver.find_element("tag name", "body").text
     if "invalid" in page_text.lower() or "error" in page_text.lower():
-        print(f"\nPage contains error text:")
+        print("\nPage contains error text:")
         print(page_text[:500])
 
     # Check cookies

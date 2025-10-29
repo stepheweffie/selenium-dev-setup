@@ -3,7 +3,6 @@ Auto-login to consignment services and open all tabs
 """
 
 from browser import Browser
-from selenium.webdriver.common.by import By
 import time
 import sys
 
@@ -57,7 +56,7 @@ def auto_login(username, password):
                 )
                 print("Clicking login button...")
                 submit_btn.click()
-            except:
+            except Exception:
                 print("Submitting form via Enter key...")
                 password_field.submit()
 

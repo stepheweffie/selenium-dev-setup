@@ -3,8 +3,6 @@ Login to consignment system and open all services
 """
 
 from browser import Browser
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 
 browser = Browser(headless=False)
@@ -55,7 +53,7 @@ try:
         time.sleep(0.5)
 
     print("\n✓ All services opened!")
-    print(f"\nTabs open:")
+    print("\nTabs open:")
     print(f"  - Admin: {browser.driver.current_url}")
     for name, url in services:
         print(f"  - {name}: {url}")
