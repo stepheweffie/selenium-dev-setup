@@ -18,7 +18,9 @@ def browser():
     browser_instance.close()
 
 
-@pytest.mark.skip(reason="Google search test is flaky due to CAPTCHA and dynamic content")
+@pytest.mark.skip(
+    reason="Google search test is flaky due to CAPTCHA and dynamic content"
+)
 def test_google_search(browser):
     """Test Google search functionality."""
     browser.goto("https://www.google.com")
